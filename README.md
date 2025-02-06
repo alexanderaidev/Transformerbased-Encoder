@@ -4,4 +4,5 @@
 The Data "Train_Algorithm.py" contains my custom Training Algorithm.
 
 
+
 Some of the comments like " #if..." are just inactive code, by deleting the "#" the code code can perform.
