@@ -1,4 +1,3 @@
-import numpy as np
 from Encoder import Encoder
 from transformers import AutoTokenizer
 import torch
@@ -88,9 +87,7 @@ def get_progressive_datasets(dataset_amount, tokenizer, start_index):
         
         with open(fr"{path}", "r", encoding = "utf-8")as file:
             tokenized_texts.append(tokenizer.encode(file.read(), truncation=False, add_special_tokens=False))            
-        
-    
-            
+                    
     return tokenized_texts
     
     
@@ -118,7 +115,6 @@ cycles = 65
 stabilization_cycles = 5      
 
 
-
 model = Encoder(vocab_size= vocab_size, embedding_dim = embedding_dim, max_seq_len = max_seq_len, num_heads = num_heads)
 
 
@@ -138,11 +134,11 @@ for state in optimizer_initialize.state.values():
             state[k] = v.to(device)
 
 
-
 datasets = []
 dataloaders_progressive = []
 dataloaders_stabilization = []
 
+# Trainingszyklus starten
 for cycle in range(cycles):
 
     
@@ -266,14 +262,11 @@ for cycle in range(cycles):
                     correct = (predicted == labels) & mask  # Zählen der richtigen Vorhersagen
                     correct = correct.sum().item()
                     total_correct += correct
-                    total_tokens += mask.sum()  # Gesamtzahl der Tokens im Batch
-                   
+                    total_tokens += mask.sum()  # Gesamtzahl der Tokens im Batch           
                     
                 accuracy = total_correct / total_tokens * 100  # Accuracy in Prozent
                 epoch_counter += 1
-                
-                
-                
+                 
                 if accuracy >= final_accuracy:
                     global_epoch_counter += epoch_counter
                     print("Anzahl derbenötigter Epochen: ", epoch_counter)
@@ -281,16 +274,11 @@ for cycle in range(cycles):
                 
             dataloader_counter += 1    
             torch.cuda.empty_cache()
-            
-        
-            
+                
         with open(r"C:\Users\Alex\Desktop\Python\KIs\Natural_Language_Processing\Encoder\LOGs.txt", "a")as file:
             file.write(f"Cycle: {cycle + 1}      Iteration: {stabilization_cycle + 1}\n")
             file.write(f"Durchschnittliche Epochen der Stabilisation: {global_epoch_counter / len(dataloaders_stabilization)}\n")
                 
-            
-        
-        
     save_model()  
               
     del optimizer, accuracy, epoch_counter, total_correct, total_tokens, loss, dataloader_counter          
