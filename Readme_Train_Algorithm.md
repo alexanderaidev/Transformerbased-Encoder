@@ -17,8 +17,9 @@ The Algorithm itself works in "Cycles:
      Typically, you should run 3–5 iterations per Stabilization Cycle.
 
 
-** Note:**  
+**⚠️ Note:**  
   Replace every occurrence of `Your path here` in the code with your own file or folder paths, then you’re all set.
+
 
 
 
