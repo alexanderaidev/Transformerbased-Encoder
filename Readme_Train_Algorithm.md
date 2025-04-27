@@ -21,5 +21,5 @@ The Algorithm itself works in "Cycles:
 
 
 **⚠️ Work in Progress:**  
-- Stabilization-Dataloader aktuell auf GPU, wird auf CPU verlagert  
-- Speicher-Leaks bekannt, wird in nächstem Refactor behoben  
+- Stabilization-Dataloader currently on GPU will be directed to CPU
+- Memory Leaks known, will be fixed at the next refactoring
