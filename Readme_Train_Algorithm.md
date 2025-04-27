@@ -20,5 +20,6 @@ The Algorithm itself works in "Cycles:
 
 
 
-# Note:
-  I’m currently improving the Stabilization Cycle, because the `dataloaders_stabilization` list grows continuously and causes unnecessary memory usage. I plan to keep the dataloaders on the CPU to     reduce this overhead.
+**⚠️ Work in Progress:**  
+- Stabilization-Dataloader aktuell auf GPU, wird auf CPU verlagert  
+- Speicher-Leaks bekannt, wird in nächstem Refactor behoben  
