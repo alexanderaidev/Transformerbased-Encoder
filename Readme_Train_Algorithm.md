@@ -13,3 +13,10 @@ The Algorithm itself works in "Cycles:
    # What is an Iteration?
      One single Iteration means that every file inside of the dataloader is trained on an accuracy of 91%. 
      Usually you should go for 3-5 Iterations per Stabilization Cycle.
+
+
+
+
+
+# Note:
+  I'm currently working on the Stabilization Cycle, because the used list is continiously growing and causes unnessecary memory-usage. I will change, that the Dataloaders will stay on the CPU!
