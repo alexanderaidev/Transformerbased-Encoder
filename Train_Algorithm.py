@@ -46,11 +46,11 @@ def apply_mlm_masking(input_ids, device, mask_prob):
 
 def save_model():
     
-    model_saving_path = r"C:\Users\Alex\Desktop\Python\KIs\Natural_Language_Processing\Encoder\Encoder_German\Encoder_Weights\Encoder_German_Weights.pth"
+    model_saving_path = "Your path here" 
     
     torch.save({
     'model_state_dict': model.state_dict(),
-    #'optimizer_state_dict': optimizer.state_dict(),
+    #'optimizer_state_dict': optimizer.state_dict(),            # Auskommentiert, da das Speichern des Optimizers nicht notwendig ist.
     }, model_saving_path)
     
     print("Das Modell wurde erfolgreich gespeichert")
@@ -58,7 +58,7 @@ def save_model():
 
 def load_model():
     
-    model_loading_path = r"C:\Users\Alex\Desktop\Python\KIs\Natural_Language_Processing\Encoder\Encoder_German\Encoder_Weights\Encoder_German_Weights.pth"
+    model_loading_path = "Your path here"
     # Checkpoint laden
     checkpoint = torch.load(model_loading_path, weights_only = True)
     
@@ -77,9 +77,9 @@ def get_progressive_datasets(dataset_amount, tokenizer, start_index):
 
     paths = []
     tokenized_texts = []
-    #print("Das ist der Startindex: ", start_index)
+    #print("Das ist der Startindex: ", start_index)                # Überprüfung, ob der Index korrekt startet
     for i in range(start_index, (start_index + dataset_amount)):
-        paths.append(fr"C:\Users\Alex\Documents\LM - Trainingsdaten\3 Mio Sätze\3M_Sätze_{i+1}.txt")
+        paths.append(f"Your path here, Data_{i+1}.txt")
     
     #for path in paths:
         #print("Ausgewählte Datei: ", path)
@@ -94,10 +94,10 @@ def get_progressive_datasets(dataset_amount, tokenizer, start_index):
     return tokenized_texts
     
     
-
+# Bert-base-german-cased als Tokenizer
 tokenizer = AutoTokenizer.from_pretrained("bert-base-german-cased")
 
-
+# Dies kann sehr gerne angepasst werden. Meine Grafikkarte (RTX 4060) hat mit 8GB VRAM begrenzten Speicher.
 batch_size = 14
 max_seq_len = 256
 dataset_amount = 5
@@ -115,14 +115,15 @@ epochs = 2000
 targeted_accuracy = 81
 final_accuracy = 91
 cycles = 65
-stabilization_cycles = 5      # muss gerade sein
+stabilization_cycles = 5      
 
 
 
 model = Encoder(vocab_size= vocab_size, embedding_dim = embedding_dim, max_seq_len = max_seq_len, num_heads = num_heads)
 
-criterion = nn.CrossEntropyLoss(ignore_index=-100)
-optimizer_initialize = torch.optim.AdamW(model.parameters(), lr=lr, betas=(0.9, 0.98), weight_decay = 0.01)
+
+criterion = nn.CrossEntropyLoss(ignore_index=-100)        # Loss
+optimizer_initialize = torch.optim.AdamW(model.parameters(), lr=lr, betas=(0.9, 0.98), weight_decay = 0.01)    # Optimizer
 
 model = load_model()
 
@@ -217,7 +218,7 @@ for cycle in range(cycles):
            
             dataloader_counter += 1
              
-    #del optimizer, accuracy, epoch_counter, total_correct, total_tokens, loss, dataloader_counter
+    # Freigabe der Progressive-List, da nun der Stabilization-Cycle Startet
     dataloaders_progressive.clear()       
     torch.cuda.empty_cache()
     
@@ -227,7 +228,7 @@ for cycle in range(cycles):
     print("Stabilization Cycle started")
         
     for stabilization_cycle in range(stabilization_cycles): 
-        smaller_lr = lr
+        smaller_lr = lr * 0.9      # Hier wird die Lernrate reduziert, damit 'Gewichtsspitzen' wegen der unterschiedlichen Datensätze geglättet werden.
         print(smaller_lr)
         optimizer = torch.optim.AdamW(model.parameters(), lr=smaller_lr, betas=(0.9, 0.98), weight_decay = 0.01)
         
