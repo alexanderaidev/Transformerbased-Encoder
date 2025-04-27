@@ -14,7 +14,7 @@ The Algorithm itself works in "Cycles:
   
    # What is an Iteration?
      One iteration means training on every file in the dataloader until the model reaches 91 % accuracy.  
-     Typically, you should run **3–5 iterations** per Stabilization Cycle.
+     Typically, you should run 3–5 iterations per Stabilization Cycle.
 
 
 
