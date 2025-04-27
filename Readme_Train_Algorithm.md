@@ -4,7 +4,7 @@ The Algorithm itself works in "Cycles:
   It controlls how often the algorithm is used.
 
 # 2: Progressive Cycle:
-  Controlls how many new file the AI is being trained on.
+  Controlls how many new files the AI is being trained on.
   With every new file, the model is trained on file(dataloader)[0] again, to avoid Catastrophic Forgetting.
 
 # 3: Stabilization Cycle:
@@ -12,4 +12,4 @@ The Algorithm itself works in "Cycles:
   The Stabilization Cycle can handle different amount of iterations.
    # What is an Iteration?
      One single Iteration means that every file inside of the dataloader is trained on an accuracy of 91%. 
-     Usually you should go for 5 Iterations per Stabilization Cycle.
+     Usually you should go for 3-5 Iterations per Stabilization Cycle.
